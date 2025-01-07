@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import PropTypes from 'prop-types';
 import {getCourses} from "../../API/CoursesAPI.jsx";
-import {Autocomplete, Box, CircularProgress, IconButton, TextField} from "@mui/material";
+import {Autocomplete, Box, Checkbox, CircularProgress, FormControlLabel, IconButton, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {SERVER_URL} from "../../Utils/Constants.jsx";
+import {sendQuestion} from "../../API/SearchAPI.jsx";
 
 function Search({onSelect}) {
     const navigate = useNavigate();
@@ -14,9 +15,12 @@ function Search({onSelect}) {
     const [loading, setLoading] = useState(false);
     const [filteredOptions, setFilteredOptions] = useState([]);
     const [searchIconColor, setSearchIconColor] = useState('inherit');
+    const [aiResponse, setAiResponse] = useState("");
 
-    const handleSearch = () => {
-        navigate(SERVER_URL + "/search");
+    const handleSearch = async () => {
+        const response = await sendQuestion(inputValue)
+        await setAiResponse(response);
+        console.log(aiResponse);
         setSearchIconColor('primary');
         setTimeout(() => {
             setSearchIconColor('inherit');
@@ -35,13 +39,16 @@ function Search({onSelect}) {
     }, []);
 
     useEffect(() => {
-        if (inputValue.length > 0) {
-            const filtered = options.filter(option => option.name.toLowerCase().includes(inputValue.toLowerCase()));
+        if (Array.isArray(options) && options.every(opt => opt && typeof opt.name === "string") && inputValue.length > 0) {
+            const filtered = options.filter(option =>
+                option.name.toLowerCase().includes(inputValue.toLowerCase())
+            );
             setFilteredOptions(filtered);
         } else {
             setFilteredOptions([]);
         }
     }, [inputValue, options]);
+
 
     return (
         <div className={"upper-container"}>
@@ -91,8 +98,13 @@ function Search({onSelect}) {
                                 }}
                             />
                         )}
+
                     />
                 </div>
+                <div>{aiResponse}</div>
+                <FormControlLabel control={<Checkbox onChange={()=>{
+
+                }} defaultChecked />} label="full website search" />
             </div>
         </div>
     );
