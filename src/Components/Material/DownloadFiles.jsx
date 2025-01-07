@@ -66,7 +66,14 @@ function DownloadFiles(props) {
         )
     }
 
-
+    function downloadFile(fileId){
+        setTimeout(() => {
+            const response = {
+                file: encodeURI("http://localhost:8080/download-file?id="+fileId)
+            };
+            window.open(response.file);
+        }, 10);
+    }
     const groupFilesByUploader = (files) => {
         return files.reduce((files, file) => {
             files[file.uploadedBy] = files[file.uploadedBy] || [];
@@ -135,7 +142,7 @@ function DownloadFiles(props) {
                                     <ListItemButton dense={true} key={index}>
 
                                         <ListItemIcon>
-                                            <IconButton>
+                                            <IconButton onClick={()=>{downloadFile(file.fileId)}}>
                                                 <DownloadIcon sx={{'&:hover': {color: 'green'}}}/>
                                             </IconButton>
                                         </ListItemIcon>

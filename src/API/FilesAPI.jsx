@@ -39,6 +39,7 @@ export async function getMaterialFiles(materialId) {
         materialId: materialId,
         userId: userId,
     }
+console.log(params)
     try {
         const response = await axios.get(SERVER_URL + "/get-material-files-by-id", {params})
         return await response?.data;

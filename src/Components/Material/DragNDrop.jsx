@@ -35,6 +35,7 @@ function DragNDrop() {
         const response = await getMaterialFiles(materialId)
         setCloudFiles(response)
 
+
     }
 
 
@@ -63,6 +64,7 @@ function DragNDrop() {
 
     useEffect(() => {
         handleGetMaterialFiles()
+
     }, []);
 
     const alertHandler = () => {
