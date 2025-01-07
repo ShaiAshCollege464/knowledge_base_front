@@ -17,7 +17,6 @@ import DownloadIcon from '@mui/icons-material/Download';
 import axios from "axios";
 import {SERVER_URL} from "../../Utils/Constants.jsx";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
-import PropTypes from "prop-types";
 import formatDatetime from "../../Utils/formatDatetime.jsx";
 
 // DownloadFiles.propTypes = {
