@@ -102,10 +102,13 @@ function Login() {
     function getInput(title, value, setValue, type,pattern) {
         return (
             <div className={"flex input-container"} key={title}>
+
                 <label className={"form-label"}>{title}:</label>
-                <div style={{ display: "flex", width:"100%" }}>
+                <div style={{display: "flex", width: "100%"}}>
                     {type === "password" && <button className={"show-password"}
-                                                    onClick={(event) => {title==="Password" && handleShowPassword(event)}}
+                                                    onClick={(event) => {
+                                                        title === "Password" && handleShowPassword(event)
+                                                    }}
                     ></button>}
                     <input required
                            className={"form-input"}
@@ -128,7 +131,7 @@ function Login() {
         );
     }
 
-    const handleRegex=(type)=>{
+    const handleRegex = (type) => {
         let regex = ""
         switch (type) {
             case "password": regex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\\-]).{8,}'; break;
@@ -137,48 +140,54 @@ function Login() {
         return regex
     }
                 return (
-                <div className="flex form-page">
-                    <div className="flex form-container">
-                        <div className={"flex left-side"}>
-                            <div className={"flex form-headers"}>
-                                <img style={{width: "50px", height: "50px"}} src={"src/assets/icons/book-logo.PNG"} alt={"logo"}/>
-                                <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Login</text>
-                                <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
-                            </div>
-                            <div className={"flex form"} id="login">
-                                {getInput("Username", username, setUsername, "text", handleRegex("username"))}
-                                {getInput("Password", password, setPassword, "password", handleRegex("password"))}
-                               {errorCode !== -1 && <Error errorMessage={showErrorCode()}/> }
-                            </div>
-                            <div className={"submit-container"}>
-                                <div className={"input-pair"}>
-                                    <button id={"submit-button"} type="submit" onClick={() => login()}
-                                            className={allFieldsFilled()&&errorCode===-1 ? "active" : ""}
-                                            disabled={!allFieldsFilled()||errorCode!==-1}>
-                                        Login
-                                    </button>
-                                    <div className={"have-an-account"}>
-                                        <label>Dont have an account?</label>
-                                        <button className={"have-an-account-button"}
-                                                onClick={() => navigate(REGISTER_URL)}> Create
-                                            Now!
+                    <div className="flex form-page">
+                        <div className="flex form-container">
+                            <div className={"flex left-side"}>
+                                <div className={"flex form-headers"}>
+                                    <img style={{width: "50px", height: "50px"}} src={"src/assets/icons/book-logo.PNG"}
+                                         alt={"logo"}/>
+                                    <text style={{fontSize: "1.8rem", fontWeight: "bold"}}>Login</text>
+                                    <text style={{fontSize: "1.2rem", fontWeight: "bold"}}>Hi! welcome back 😊</text>
+                                </div>
+                                <div className={"flex form"} id="login">
+                                    {getInput("Username", username, setUsername, "text", handleRegex("username"))}
+                                    {getInput("Password", password, setPassword, "password", handleRegex("password"))}
+                                    {errorCode !== -1 && <Error errorMessage={showErrorCode()}/>}
+                                </div>
+                                <div className={"submit-container"}>
+                                    <div className={"input-pair"}>
+                                        <button id={"submit-button"} type="submit" onClick={() => login()}
+                                                className={allFieldsFilled() && errorCode === -1 ? "active" : ""}
+                                                disabled={!allFieldsFilled() || errorCode !== -1}>
+                                            Login
                                         </button>
+                                        <div className={"have-an-account"}>
+                                            <label>Dont have an account?</label>
+                                            <button className={"have-an-account-button"}
+                                                    onClick={() => navigate(REGISTER_URL)}> Create
+                                                Now!
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                             </div>
                             <div className={"right-side"}>
-                            <div className={"image-container"}>
-                                <img className={"form-image"} style={{width: "500px", height: "500px"}}
-                                     src={"src/assets/icons/image10.png"}
-                                     alt={"login-page-image"}/>
+                                <div className={"image-container"}>
+                                    <img className={"form-image"} style={{width: "500px", height: "500px"}}
+                                         src={"src/assets/icons/image10.png"}
+                                         alt={"login-page-image"}/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {showOtpComponent && <OtpComponent arrayLength={6} username={username} onOtpSubmit={onOtpSubmit} isVerified={otpVerified} verifiedMessage={"Login successfully, you're transferred to your dashboard"} unverifiedMessage={"Login was unsuccessful, try entering the code again"}/>}
-                </div>
-                );
-                }
+                        <img src={"https://i.imgur.com/9Aaen3V.png"}/>
 
-                export default Login;
+                        {showOtpComponent && <OtpComponent arrayLength={6} username={username} onOtpSubmit={onOtpSubmit}
+                                                           isVerified={otpVerified}
+                                                           verifiedMessage={"Login successfully, you're transferred to your dashboard"}
+                                                           unverifiedMessage={"Login was unsuccessful, try entering the code again"}/>}
+                    </div>
+                );
+}
+
+export default Login;
